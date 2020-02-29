@@ -2,7 +2,6 @@ import pymysql
 import db_config
 
 connection = pymysql.connect(host='localhost',
-                             # port=3306,
                              user=db_config.db_user,
                              passwd=db_config.db_password)
 
