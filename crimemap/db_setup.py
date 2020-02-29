@@ -1,10 +1,10 @@
 import pymysql
-import my_id
+import db_config
 
 connection = pymysql.connect(host='localhost',
                              # port=3306,
-                             user=my_id.db_user,
-                             passwd=my_id.db_password)
+                             user=db_config.db_user,
+                             passwd=db_config.db_password)
 
 try:
     with connection.cursor() as cursor:
