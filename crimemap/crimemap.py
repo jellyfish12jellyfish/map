@@ -1,7 +1,8 @@
-from .dbhelper import DBHelper
 from flask import Flask
 from flask import render_template
 from flask import request
+from dbhelper import DBHelper
+
 
 app = Flask(__name__)
 DB = DBHelper()
@@ -37,4 +38,4 @@ def clear():
 
 
 if __name__ == '__main__':
-    app.run(port=3306, debug=True)
+    app.run(port=5000, debug=True)
