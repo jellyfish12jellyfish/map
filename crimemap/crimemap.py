@@ -1,9 +1,17 @@
 from flask import Flask
 from flask import render_template
 from flask import request
-from dbhelper import DBHelper
+# релаьная БД
+# from dbhelper import DBHelper
+# пока что работаем с имитацией БД
+# макет бд
+import db_config
 
-
+if db_config.test:
+    from MockDBHelper import MockDBHelper as DBHelper
+else:
+    from dbhelper import DBHelper
+# макет бд, end
 app = Flask(__name__)
 DB = DBHelper()
 

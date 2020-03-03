@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta charset="UTF-8">
-	<title>Crime map</title>
+    <title>Быстрый старт. Размещение интерактивной карты на странице</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=580fbb2a-1cef-444f-9c5d-16fd5fda48aa&lang=ru_RU" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+        ymaps.ready(init);
+        function init(){
+            var myMap = new ymaps.Map("map", {
+                center: [56.91153969, 60.80442967],
+                zoom: 13
+            });
+        }
+    </script>
 </head>
+
 <body>
-
-	<h1>Crime Map</h1>
-
-	<form action="/add" method="POST">
-		<input type="text" name="userinput">
-		<input type="submit" value="Submit">
-	</form>
-
-	<a href="/clear">clear</a>
-	{% for userinput in data %}
-	<p>{{ userinput }}</p>
-	{% endfor %}
+    <div id="map" style="width: 70%; height: 400px"></div>
 </body>
+
 </html>
