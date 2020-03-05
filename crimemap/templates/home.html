@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/style.css') }}">
     <title>Быстрый старт. Размещение интерактивной карты на странице</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script src="https://api-maps.yandex.ru/2.1/?apikey=580fbb2a-1cef-444f-9c5d-16fd5fda48aa&lang=ru_RU"
             type="text/javascript">
     </script>
     <script type="text/javascript">
-
 ymaps.ready(init);
 
 function init() {
@@ -31,13 +31,18 @@ function init() {
         else {
             myPlacemark = createPlacemark(coords);
             myMap.geoObjects.add(myPlacemark);
+
             // Слушаем событие окончания перетаскивания на метке.
             myPlacemark.events.add('dragend', function () {
                 getAddress(myPlacemark.geometry.getCoordinates());
             });
         }
+
         getAddress(coords);
+
     });
+
+
 
     // Создание метки.
     function createPlacemark(coords) {
@@ -72,11 +77,43 @@ function init() {
 }
 
 
+
     </script>
+
+
+
 </head>
 
 <body>
-<div id="map" style="width: 70%; height: 400px"></div>
+<h1>Map</h1>
+<p>A map of recent meet activity in the town area</p>
+<div id="map"> <!--style="width: 70%; height: 400px"--> </div>
+
+<div id="newcrimeform">
+    <h2>submit new crime</h2>
+    <form action="/submitcrime" method="post">
+        <label for="category">Category</label>
+        <select name="category" id="category">
+            <option value="mugging">Mugging</option>
+            <option value="breaking">Break-in</option>
+        </select>
+        <label for="date">Date</label>
+        <input name="date" id="date" type="date">
+
+<!--        <label for="latitude">Latitude</label>-->
+<!--        <input name="latitude" id="latitude" type="text">-->
+<!---->
+<!--        <label for="longitude">Longitude</label>-->
+<!--        <input name="longitude" id="longitude" type="text">-->
+
+        <label for="description">Description</label>
+        <textarea name="description" id="description" placeholder="A brief but detailed description of the crime"
+                  rows="10"></textarea>
+        <input type="submit" value="Submit">
+
+    </form>
+</div>
+
 </body>
 
 </html>
