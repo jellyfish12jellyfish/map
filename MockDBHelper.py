@@ -13,3 +13,11 @@ class MockDBHelper:
 
     def add_crime(self, category, date, description):
         pass
+
+    def get_all_crimes(self):
+        return [{
+            'date': "2020-03-05",
+            'category': "mugging",
+            "description": "mock description"
+        }]
+

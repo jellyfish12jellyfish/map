@@ -1,5 +1,6 @@
 import pymysql
 import db_config
+import datetime
 
 
 class DBHelper:
@@ -50,5 +51,23 @@ class DBHelper:
                 connection.commit()
         except Exception as e:
             print(e)
+        finally:
+            connection.close()
+
+    def get_all_crimes(self):
+        connection = self.connect()
+        try:
+            query = "SELCET date, category, description FROM crimes;"
+            with connection.cursor() as cursor:
+                cursor.execute(query)
+            named_crimes = []
+            for crime in cursor:
+                named_crime = {
+                    'date': datetime.datetime.strftime(crime[0], '%Y-%m-%d'),
+                    'category': crime[1],
+                    'description': crime[2]
+                }
+                named_crimes.append(named_crime)
+            return named_crimes
         finally:
             connection.close()

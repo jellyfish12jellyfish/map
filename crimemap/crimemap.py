@@ -1,16 +1,18 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+import json
+
 # релаьная БД
-from dbhelper import DBHelper
+# from dbhelper import DBHelper
 # пока что работаем с имитацией БД
 # макет бд
 import db_config
 
-# if db_config.test:
-#     from MockDBHelper import MockDBHelper as DBHelper
-# else:
-#     from dbhelper import DBHelper
+if db_config.test:
+    from MockDBHelper import MockDBHelper as DBHelper
+else:
+    from dbhelper import DBHelper
 # макет бд, end
 app = Flask(__name__)
 DB = DBHelper()
@@ -18,12 +20,9 @@ DB = DBHelper()
 
 @app.route("/")
 def home():
-    try:
-        data = DB.get_all_inputs()
-    except Exception as e:
-        print(e)
-        data = None
-    return render_template('home.html', data=data)
+    crimes = DB.get_all_crimes()
+    crimes = json.dumps(crimes)
+    return render_template("home.html", crimes=crimes)
 
 
 @app.route("/add", methods=["POST"])
