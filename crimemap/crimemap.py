@@ -2,15 +2,15 @@ from flask import Flask
 from flask import render_template
 from flask import request
 # релаьная БД
-# from dbhelper import DBHelper
+from dbhelper import DBHelper
 # пока что работаем с имитацией БД
 # макет бд
 import db_config
 
-if db_config.test:
-    from MockDBHelper import MockDBHelper as DBHelper
-else:
-    from dbhelper import DBHelper
+# if db_config.test:
+#     from MockDBHelper import MockDBHelper as DBHelper
+# else:
+#     from dbhelper import DBHelper
 # макет бд, end
 app = Flask(__name__)
 DB = DBHelper()
@@ -42,6 +42,15 @@ def clear():
         DB.clear_all()
     except Exception as e:
         print(e)
+    return home()
+
+
+@app.route("/submitcrime", methods=["POST"])
+def submitcrime():
+    category = request.form.get("category")
+    date = request.form.get("date")
+    description = request.form.get("description")
+    DB.add_crime(category, date, description)
     return home()
 
 
